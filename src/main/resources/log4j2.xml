@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+  <Appenders>
+    <!-- APPENDER 1: CONSOLE -->
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="collaboard-file-log" fileName="logs/app.log">
+      <PatternLayout pattern="%d{yyyy-mm-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+  </Appenders>
+  <Loggers>
+    <Logger name="com.nagygm.collaboard" level="trace">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Logger name="org.springframework" level="debug">
+      <AppenderRef ref="Console"/>
+    </Logger>
+    <Root level="debug">
+      <AppenderRef ref="collaboard-file-log" level="debug"/>
+    </Root>
+  </Loggers>
+</Configuration>

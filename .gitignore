@@ -1,0 +1,15 @@
+.gradle/
+.git/
+/.idea/
+/collaboard.iml
+/build/
+<<<<<<< HEAD
+/META-INF
+/com
+=======
+/out/
+>>>>>>> 877b209d146eae90ea43ce300c56ad368a191252
+/src/main/main.iml
+/src/main/resources/local.properties
+/src/main/resources/application-local.yml
+/logs/

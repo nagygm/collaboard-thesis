@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="card(id, title, modalContent, buttonOk, buttonCancel )" th:attr="id=${id}" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title" th:text="${title}">Modal title</p>
+      <button class="delete" th:attr="id=${id + 'Close'}" aria-label="close"></button>
+    </header>
+    <section th:insert="${modalContent}" class="modal-card-body">
+      
+    </section>
+    <footer class="modal-card-foot">
+      <button th:if="${buttonOk != false}" th:attr="id=${id + 'Ok'}"  class="button is-success" th:text="${buttonOk}">Save changes</button>
+      <button th:if="${buttonCancel != false}" th:attr="id=${id + 'Cancel'}"  class="button" th:text="${buttonCancel}">Cancel</button>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

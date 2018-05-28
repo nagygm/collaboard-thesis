@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{boardPreferences.title}, true )}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div th:insert="~{fragments/header :: title(titleText=#{boardPreferences.title} )}"></div>
+<div th:if="${#authorization.expression(authExpressionForOwner)}"  class="columns panel level-item is-offset-one-quarter">
+  <div class="column panel-block is is-two-thirds field">
+    <div class="level">
+      <form id="updateBoardDetails" class="columns">
+        <div class="column is-three-fifths">
+          <label for="title" th:text="#{boardManager.title.label}">Title</label>
+          <div class="control">
+            <input th:value="${board.getTitle()}" class="input" type="text" id="title" name="title" autofocus="autofocus" required
+            />
+            <div id="titleError" class="has-text-danger"></div>
+          </div>
+        </div>
+        <div class="column is-four-fifths">
+          <label class="" for="description" th:text="#{boardManager.description.label}">Description</label>
+          <div class="control">
+            <input th:value="${board.getDescription()}" class="input" type="text" id="description" name="description"/>
+            <div id="descriptionError" class="has-text-danger"></div>
+          </div>
+        </div>
+        <div class="column is-one-fifth is-offset-one-fifth">
+          <div><br/></div>
+          <div class="control">
+            <div id="updateBoardDetailsButton" class="button is-primary" th:text="#{boardPreferences.updateButton.label}"></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="columns panel level-item is-offset-one-quarter">
+  <div class="column panel-block is is-two-thirds field">
+    <div class="field">
+      <table id="preferencesTable" class=" control">
+        <thead>
+        <tr>
+          <th th:text="#{boardPreferences.column.username}">Username</th>
+          <th th:text="#{boardPreferences.column.fullName}">Full Name</th>
+          <th th:text="#{boardPreferences.column.permission}">Permission</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <th th:text="#{boardPreferences.column.username}">Username</th>
+          <th th:text="#{boardPreferences.column.fullName}">Full Name</th>
+          <th th:text="#{boardPreferences.column.permission}">Permission</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="field level is-two-thirds">
+      <div class="level-left control">
+        <div id="delete" disabled class="is-1 level-item button is-danger is-outlined"
+             th:text="#{boardPreferences.deleteButton.label}"></div>
+      </div>
+      <div class="level-right control">
+        <div id="edit"
+             class="is-1 disabled level-item button is-offset-one-quarter is-success is-outlined"
+             th:text="#{boardPreferences.editButton.label}"></div>
+        <div id="toggleModalAdd"
+             class="is-1 level-item button is-offset-one-quarter is-success is-outlined"
+             th:text="#{boardPreferences.addButton.label}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<div th:insert="~{fragments/modal :: card('addModal',
+#{boardPreferences.addModal.title}, ~{:: .setUserRightsModal}, #{boardPreferences.addModal.ok.label},
+#{boardPreferences.addModal.cancel.label})}">
+  <div class="setUserRightsModal">
+    <form id="setuserRightsForm">
+      <div class="field">
+        <label for="username" th:text="#{boardPreferences.username.label}">Username</label>
+        <div class="control">
+          <input class="input" type="text" id="username" name="username" autofocus="autofocus"
+          />
+          <div class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <label for="permission" th:text="#{boardPreferences.permission.label}">Permission</label>
+          <select id="permission">
+            <option th:each="value : ${permissions}"
+                    th:value="${value.name()}"
+                    th:text="#{${'boardPreferences.permission.' + value.name()}}">
+            </option>
+          </select>
+          <div class="has-text-danger"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let messageProperties = {};
+  messageProperties['BOARD_READ'] = [[#{boardManager.permission.viewer}]];
+  messageProperties['BOARD_WRITE'] = [[#{boardManager.permission.editor}]];
+  messageProperties['BOARD_ADMIN'] = [[#{boardManager.permission.admin}]];
+  messageProperties['BOARD_OWNER'] = [[#{boardManager.permission.owner}]];
+
+  let board = [[${board}]];
+  /*]]>*/
+</script>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="/static/js/app/board_preferences.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header_head(#{login.title},false )}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+
+<div class="level">
+  <div class="level-item"><h1 class="title" th:text="#{login.title}">Login</h1></div>
+</div>
+<div class="field level ">
+  <div class="level-item columns panel">
+    <form th:action="@{/login}" method="post" class="column panel-block one is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
+      <p th:if="${loginError}" class="has-text-danger" th:text="#{appuser.login.badAuthentication}">Wrong appUser or
+        password</p>
+      <div class="field">
+        <label for="username" th:text="#{login.usernameLabel}">Username</label>
+        <div class="control has-icons-left">
+          <input class="input" type="text" id="username" name="username" autofocus="autofocus"/>
+          <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
+        </div>
+      </div>
+      <div class="field">
+        <label for="password" th:text="#{login.passwordLabel}">Password</label>
+        <div class="control has-icons-left">
+          <input class="input" type="password" id="password" name="password"/>
+          <span class="icon is-small is-left"><i class="fas fa-key"></i></span>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="button is-dark" th:value="#{login.submit}" type="submit" value="Log in"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

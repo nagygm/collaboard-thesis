@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!--/*/ <th:block th:include="~{fragments/header :: header_head(#{boardManager.title},false )}">
+        </th:block> /*/-->
+  <link id="pageCss" href="/static/css/canvas.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="section">
+      <div class="toolbox field">
+        <div class="control field" th:if="${!boardIsReadOnly}">
+          <a id="pencil-mode" class="is-outlined is-primary button" >
+            <span class="icon"><img class="image is-24x24"
+                                    th:src="${'/static/icon/edit.png'}"/></span>
+          </a>
+        </div>
+        <div class="control field">
+          <a id="move-mode" class="is-outlined is-primary button">
+            <span class="icon"><img class="image is-24x24"
+                                    th:src="${'/static/icon/move.png'}"/></span>
+          </a>
+        </div>
+        <div class="" th:if="${!boardIsReadOnly}">
+          <a id="text-mode" class="is-outlined is-primary button">
+            <span class="icon"><img class="image is-24x24"
+                                    th:src="${'/static/icon/text.png'}"/></span>
+          </a>
+        </div>
+        <div class="control field" >
+          <div id="drawing-mode-options" class="options is-invisible" th:if="${!boardIsReadOnly}">
+            <div>
+              <label for="drawing-line-width" th:text="#{whiteboard.toolbox.lineWidth.label}">Width:</label>
+            </div>
+            <div>
+              <span class="info">3</span><input type="range" value="3" min="1" max="100"
+                                                id="drawing-line-width"><br>
+            </div>
+            <div>
+              <label for="drawing-color" th:text="#{whiteboard.toolbox.lineColor.label}">Color:</label>
+            </div>
+            <div>
+              <input type="color" value="#191f21" id="drawing-color"><br>
+            </div>
+          </div>
+        </div>
+        <div class="control field">
+          <a id="saveToPng" class="is-outlined is-primary button">
+            <span class="icon"><i class="fa fa-download "></i>
+            </span>
+            <span th:text="#{whiteboard.saveToPng}">PNG</span>
+            <a class="is-invisible" href-lang='image/svg+xml' id="pngDownload" download="data.png"></a>
+          </a>
+        </div>
+        <div class="">
+          <a id="saveToSvg" class="is-outlined is-primary button">
+            <span class="icon"><i class="fa fa-download "></i>
+            </span>
+            <span th:text="#{whiteboard.saveToSvg}">SVG</span>
+            <a class="is-invisible" href-lang='image/svg+xml' id="svgDownload" download="data.svg"></a>
+          </a>
+        </div>
+      </div>
+</div>
+<div tabindex="0" class="canvas-outer">
+  <canvas class="is-bordered" id="canvas"></canvas>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let urlHash = [[${urlHash}]];
+  let username = [[${username}]];
+  let boardTitle = [[${boardTitle}]];
+  let readOnly = [[${boardIsReadOnly}]]
+  /*]]>*/
+</script>
+<script src="/static/js/app/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:fragment="header_head(title, datatablesCss)">
+  <meta charset="UTF-8">
+  <link href="/webjars/bulma/0.7.1/css/bulma.css" rel="stylesheet"/>
+  <link th:if="${datatablesCss==true}"
+        href="/webjars/datatables/1.10.16/media/css/jquery.dataTables.css" rel="stylesheet"/>
+  <!--<link href="/webjars/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/>-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+        integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp"
+        crossorigin="anonymous">
+  <link href="/static/css/menu.css" rel="stylesheet"/>
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${title}"></title>
+</head>
+<body>
+<div th:fragment="header">
+  <script th:src="@{/webjars.js}"></script>
+  <script src="/webjars/requirejs/2.3.5/require.min.js"></script>
+  <script>
+    require.config({
+      baseUrl: '/static/js'
+    });
+  </script>
+  <div class=" wrapper has-background-white-bis navbar is-fixed-top" role="navigation"
+       aria-label="main navigation">
+    <div class="navbar-brand columns">
+
+
+      <!--<div class="select is-small">-->
+      <!--<select onchange="location = '?lang='+this.value" >-->
+      <!--<option th:text="#{language.english}" th:selected="${#locale == 'en_EN'}" value="en_EN">English</option>-->
+      <!--<option th:text="#{language.hungary}" th:selected ="${#locale == 'hu_HU'}" value="hu_HU">English</option>-->
+      <!--</select>-->
+
+      <!--</div>-->
+      <div class="column" th:text="#{nav.username.label}"></div>
+      <div class="column" sec:authentication="name"></div>
+      <!--<div class="column">-->
+      <!--<img class="image is-32x32" th:src="${'/static/icon/'+ #locale + '.png'}">-->
+      <!--</div>-->
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start"></div>
+      <div class="navbar-end">
+        <a class="navbar-item" th:href="@{/}"
+           th:text="#{nav.homeLabel}">Introduction</a>
+        <a sec:authorize="hasRole('ROLE_ADMIN')" class="navbar-item"
+           th:href="@{/admin/user-manager}" th:text="#{nav.adminHomeLabel}">Admin Home</a>
+        <a sec:authorize="hasRole('ROLE_USER')" class=" navbar-item"
+           th:href="@{/board-manager}" th:text="#{nav.boardsLabel}">Boards</a>
+        <a sec:authorize="isAnonymous()" class="navbar-item"
+           th:href="@{/registration}" th:text="#{nav.registration}">Registration</a>
+        <th:block th:switch="${#authorization.expression('isAuthenticated()')}">
+          <a th:case="true" class="navbar-item " th:href="@{/logout}"
+             th:text="#{nav.logoutLabel}">Login</a>
+          <a th:case="false" class="navbar-item" th:href="@{/login}"
+             th:text="#{nav.loginLabel}">Logout</a>
+        </th:block>
+        <div class="navbar-item"></div>
+      </div>
+    </div>
+    <script src="/static/js/app/menu.js"></script>
+  </div>
+</div>
+<div th:fragment="title(titleText)" class="margin-bottom-40 level">
+  <div class="level-item"><h1 class="title" th:text="${titleText}">Login</h1></div>
+</div>
+</body>
+</html>

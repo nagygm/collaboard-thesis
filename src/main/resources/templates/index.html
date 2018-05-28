@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{index.title},false)}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="section">
+  <article class="container">
+    <h1 class="title" th:text="#{index.title}">Summary</h1>
+    <br/>
+    <p th:text="#{index.summary}" class="">This is a collaborative drawing application prototype in its early part of life.</p>
+    <br/>
+    <h4>Github: </h4><a href="https://github.com/nagygm/collaboard" th:text="#{index.github}"></a>
+  </article>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

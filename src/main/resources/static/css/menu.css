@@ -1,0 +1,24 @@
+#navbar {
+  transform: translateY(0px);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  padding-top: 3.25rem;
+}
+
+#wrapper {
+  flex: 1;
+}
+
+.fix-footer {
+  position: absolute;
+  width: 100%;
+  bottom: -55px;
+  overflow:hidden;
+}
+
+.margin-bottom-40 {
+  margin-bottom: 40px;
+}

@@ -1,0 +1,39 @@
+server:
+  port: 8080
+  compression:
+    enabled: false
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain,application/javascript,text/css,application/pdf,image/jpeg,image/png,image/gif
+spring:
+  profiles: dev
+  main:
+    web-application-type: servlet
+  thymeleaf:
+    cache: false
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
+  datasource:
+    url: jdbc:mysql://172.17.0.2/collaboard?useUnicode=yes&characterEncoding=UTF-8
+    username: root
+    password: legolas
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+  data:
+    mongodb:
+      database: collaboard
+      host: localhost
+      port: 27017
+      username: collaboard-app
+      password: embramici156
+      authenticationDatabase: collaboard
+  rabbitmq:
+    host: localhost
+    port: 5672
+logging:
+  config: classpath:log4j2-dev.xml
+app:
+  enableExternalBroker: true

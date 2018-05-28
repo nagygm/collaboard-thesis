@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{registration.title},false )}"></head>
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="level">
+  <div class="level-item"><h1 th:text="#{registration.title}">Registration</h1></div>
+</div>
+<div class="field level">
+  <div class="level-item columns">
+
+    <form th:action="@{/registration}" th:object="${registrationDto}"
+          method="post"
+          class="column one is-one-fifth-fullhd is-one-quarter-desktop is-one-third-tablet">
+      <div class="field">
+        <label for="username" th:text="#{registration.usernameLabel}">Username</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" class="input" type="text" id="username" name="username" autofocus="autofocus"
+                 th:field="*{username}"/>
+          <span class="icon is-small is-left"><i class="fas is-left fa-user"></i></span>
+          <div th:if="${#fields.hasErrors('username')}"
+                 th:errors="*{username}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="email" th:text="#{registration.emailLabel}">Password</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" th:field="*{email}"
+           class="input" type="email" id="email" name="email"/ >
+          <span class="icon is-small is-left"><i class="fas is-left fa-envelope"></i></span>
+          <div th:if="${#fields.hasErrors('email')}"
+                 th:errors="*{email}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="password" th:text="#{registration.passwordLabel}">Password</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" class="input" type="password" id="password" name="password"/>
+          <span class="icon is-small is-left"><i class="fas is-left fa-key"></i></span>
+          <div th:if="${#fields.hasErrors('password')}"
+                 th:errors="*{password}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="passwordConfirmation" th:text="#{registration.passwordConfirmationLabel}">Password</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" class="input" type="password" id="passwordConfirmation" name="passwordConfirmation"/>
+          <span class="icon is-small is-left"><i class="fas is-left fa-key"></i></span>
+          <div th:if="${#fields.hasErrors('passwordConfirmation')}"
+                 th:errors="*{passwordConfirmation}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="firstName" th:text="#{registration.firstNameLabel}">FirstName</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" class="input" th:field="*{firstName}"
+                 type="text" id="firstName" name="firstName"/>
+          <div th:if="${#fields.hasErrors('firstName')}"
+                 th:errors="*{firstName}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="lastName" th:text="#{registration.lastNameLabel}">Password</label>
+        <div class="control has-icons-left">
+          <input th:errorclass="is-danger" class="input" th:field="*{lastName}"
+                 type="text" id="lastName" name="lastName"/>
+          <div th:if="${#fields.hasErrors('lastName')}"
+                 th:errors="*{lastName}" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="control">
+          <input class="button is-dark" th:value="#{register.submit}" type="submit" value="Register"/>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

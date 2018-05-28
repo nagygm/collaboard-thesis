@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{registration.title} )}"></head>
+</head>
+<body>
+<div th:fragment="input(htmlId, type, field, label, options)" class="field">
+  <label for="username" th:text="${label}">Username</label>
+  <div class="control has-icons-left">
+    <input th:errorclass="is-danger" class="input" type="text" th:attrappend="${options}" id="username" name="username" autofocus="autofocus"
+           th:field="*{username}"/>
+    <div th:if="${#fields.hasErrors('username')}"
+         th:errors="*{username}" class="is-danger is-small"></div>
+  </div>
+</div>
+
+<div th:fragment="inputWithIcon(htmlId, type, field, label, icon, options)" class="field">
+  <label for="username" th:text="#{registration.usernameLabel}">Username</label>
+  <div class="control has-icons-left">
+    <input th:errorclass="is-danger" class="input" type="text" id="username" name="username" autofocus="autofocus"
+           th:field="*{username}"/>
+    <span class="icon is-small is-left"><i class="fas is-left fa-user"></i></span>
+    <div th:if="${#fields.hasErrors('username')}"
+         th:errors="*{username}" class="is-danger"></div>
+  </div>
+</div>
+</body>
+</html>

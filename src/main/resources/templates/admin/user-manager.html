@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{userManager.title},true)}">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div th:insert="~{fragments/header :: title(titleText=#{userManager.title} )}"></div>
+<div class="field level">
+  <div class="columns panel level-item is-offset-one-quarter">
+    <div class="column panel-block is is-two-thirds field">
+      <div class="field">
+        <table id="userTable" class=" control">
+          <thead>
+          <tr>
+            <th th:text="#{userManager.column.username}">UserName</th>
+            <th th:text="#{userManager.column.firstName}">FirstName</th>
+            <th th:text="#{userManager.column.lastName}">Last Name</th>
+            <th th:text="#{userManager.column.email}">Email</th>
+            <th th:text="#{userManager.column.activation}">Active</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th th:text="#{userManager.column.username}">UserName</th>
+            <th th:text="#{userManager.column.firstName}">FirstName</th>
+            <th th:text="#{userManager.column.lastName}">Last Name</th>
+            <th th:text="#{userManager.column.email}">Email</th>
+            <th th:text="#{userManager.column.activation}">Active</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="field level is-two-thirds">
+        <div class="level-left control">
+          <div id="delete" class="is-1 level-item button is-danger is-outlined"
+               th:text="#{userManager.deleteButton.label}"></div>
+        </div>
+        <div class="level-right control">
+          <div id="toggleActivation"
+               class="is-1 level-item button is-offset-one-quarter is-success is-outlined"
+               th:text="#{userManager.activateButton.label}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="/static/js/app/user_manager.js"></script>
+</body>
+</html>

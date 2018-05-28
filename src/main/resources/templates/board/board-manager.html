@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{fragments/header :: header_head(#{boardManager.title},true )}"></head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div th:insert="~{fragments/header :: title(titleText=#{boardManager.title} )}"></div>
+<div class="field level">
+  <div class="columns panel level-item is-offset-one-quarter">
+    <div class="column panel-block is is-two-thirds field">
+      <div class="field">
+        <table id="boardTable" class=" control">
+          <thead>
+          <tr>
+            <th th:text="#{boardManager.column.title}">Title</th>
+            <th th:text="#{boardManager.column.description}">Description</th>
+            <th th:text="#{boardManager.column.urlHash}">UrlHash</th>
+            <th th:text="#{boardManager.column.permission}">Permission</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <th th:text="#{boardManager.column.title}">Title</th>
+            <th th:text="#{boardManager.column.description}">Description</th>
+            <th th:text="#{boardManager.column.urlHash}">UrlHash</th>
+            <th th:text="#{boardManager.column.permission}">Permission</th>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div class="field level is-two-thirds">
+        <div class="level-left control">
+          <div id="delete" disabled class="is-1 level-item button is-danger is-outlined"
+               th:text="#{boardManager.deleteButton.label}"></div>
+        </div>
+        <div class="level-right control">
+          <div id="preferences" disabled
+               class="is-1 level-item button is-offset-one-quarter is-success is-outlined"
+               th:text="#{boardManager.preferencesButton.label}"></div>
+          <div id="toggleModalCreate"
+               class="is-1 level-item button is-offset-one-quarter is-success is-outlined"
+               th:text="#{boardManager.createButton.label}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:insert="~{fragments/modal :: card('createModal',
+#{boardManager.createModal.title}, ~{:: .createBoardFromModal}, #{boardManager.createModal.ok.label},
+#{boardManager.createModal.cancel.label})}">
+  <div class="createBoardFromModal">
+    <form id="createBoardForm">
+      <div class="field">
+        <label for="title" th:text="#{boardManager.title.label}">Title</label>
+        <div class="control">
+          <input class="input" type="text" id="title" name="title" autofocus="autofocus"
+                 />
+          <div id="titleError" class="has-text-danger"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="description" th:text="#{boardManager.description.label}">Description</label>
+        <div class="control">
+          <input class="input" type="text" id="description" name="description"/>
+          <div id="descriptionError" class="has-text-danger"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let messageProperties = {};
+  messageProperties['BOARD_READ'] = [[#{boardManager.permission.viewer}]];
+  messageProperties['BOARD_WRITE'] = [[#{boardManager.permission.editor}]];
+  messageProperties['BOARD_ADMIN'] = [[#{boardManager.permission.admin}]];
+  messageProperties['BOARD_OWNER'] = [[#{boardManager.permission.owner}]];
+  /*]]>*/
+</script>
+<div th:replace="fragments/footer :: footer"></div>
+<script src="/static/js/app/board_manager.js"></script>
+</body>
+</html>
